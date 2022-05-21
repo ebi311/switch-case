@@ -1,0 +1,29 @@
+{
+  "name": "@ebi311/switch-case",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm build:cjs && pnpm build:esm",
+    "build:cjs": "pnpm tsc -p tsconfig.prod.cjs.json",
+    "build:esm": "pnpm tsc -p tsconfig.prod.esm.json",
+    "test": "jest"
+  },
+  "types": "./index.d.ts",
+  "type": "commonjs",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.24.0",
+    "@typescript-eslint/parser": "^5.24.0",
+    "eslint": "8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.2",
+    "typescript": "4.6.4"
+  }
+}
