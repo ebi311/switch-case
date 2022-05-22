@@ -1,13 +1,17 @@
-export declare type CaseFunction<T, P = unknown> = [
-    T | ((value: T) => boolean),
-    P | ((value: T) => P)
-];
+/** @format */
+export declare type ConditionType<T> = T | ((value: T) => boolean);
+export declare type TargetObjectType<T, P> = P | ((value: T) => P);
+export declare type CaseFunction<T, P = unknown> = {
+    conditions: ConditionType<T> | ConditionType<T>[];
+    targetObject?: TargetObjectType<T, P>;
+};
 export declare class Switch<T, P = void> {
     private cases;
-    case(caseFn: CaseFunction<T, P>): this;
+    case(conditions: ConditionType<T> | ConditionType<T>[], targetObject: TargetObjectType<T, P>): this;
     private _default?;
-    default(fn: CaseFunction<T, P>[1]): this;
+    default(fn: TargetObjectType<T, P>): this;
     private _createReturnValues;
+    private _evaluate;
     private _reduce;
-    exec(value: T): P | undefined;
+    reduce(value: T): P | undefined;
 }

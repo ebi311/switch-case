@@ -1,8 +1,12 @@
+/** @format */
 const primitiveTypes = ['string', 'number', 'bigint', 'boolean', 'symbol'];
 export class Switch {
     cases = [];
-    case(caseFn) {
-        this.cases.push(caseFn);
+    case(conditions, targetObject) {
+        this.cases.push({
+            conditions,
+            targetObject,
+        });
         return this;
     }
     _default;
@@ -10,6 +14,7 @@ export class Switch {
         this._default = fn;
         return this;
     }
+    // 対象オブジェクトの値を返す または 関数を実行し、その戻り値を返す
     _createReturnValues(value, result) {
         if (result === undefined)
             return result;
@@ -20,22 +25,32 @@ export class Switch {
             return result;
         }
     }
+    _evaluate(value, condition) {
+        if (primitiveTypes.find((t) => typeof condition === t)) {
+            return condition === value;
+        }
+        else if ('call' in condition) {
+            return condition(value);
+        }
+    }
     _reduce(value) {
         const result = this.cases.find((c) => {
-            const condition = c[0];
-            if (primitiveTypes.find((t) => typeof condition === t)) {
-                return condition === value;
+            const { conditions } = c;
+            if (Array.isArray(conditions)) {
+                return conditions.some((condition) => {
+                    return this._evaluate(value, condition);
+                });
             }
-            else if ('call' in condition) {
-                return condition(value);
+            else {
+                return this._evaluate(value, conditions);
             }
         });
         return {
             found: !!result,
-            result: result?.[1],
+            result: result?.targetObject,
         };
     }
-    exec(value) {
+    reduce(value) {
         const result = this._reduce(value);
         if (!result.found && this._default !== undefined) {
             return this._createReturnValues(value, this._default);
