@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Switch = void 0;
 const primitiveTypes = ['string', 'number', 'bigint', 'boolean', 'symbol'];
-class Switch {
+export class Switch {
     cases = [];
     case(caseFn) {
         this.cases.push(caseFn);
@@ -46,4 +43,3 @@ class Switch {
         return this._createReturnValues(value, result.result);
     }
 }
-exports.Switch = Switch;
