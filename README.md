@@ -2,8 +2,6 @@
 
 # Switch Case in JavaScript
 
-！まだパッケージをデプロイしていません。
-
 ## これは何？
 
 JavaScript の `Switch` や `if`~`else if` を利用すると、[循環的複雑度](https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E7%9A%84%E8%A4%87%E9%9B%91%E5%BA%A6)が増大します。
