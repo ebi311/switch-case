@@ -1,4 +1,4 @@
-name: pnpm Example Workflow
+name: jest test
 on:
   push:
 jobs:
